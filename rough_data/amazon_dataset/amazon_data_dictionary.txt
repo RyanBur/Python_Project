@@ -1,0 +1,11 @@
+Original data from  http://jmcauley.ucsd.edu/data/amazon/
+This dataset contains product reviews and metadata from Amazon, including 142.8 million reviews spanning May 1996 - July 2014.
+
+This dataset includes reviews (ratings, text, helpfulness votes), product metadata (descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
+
+There is an updated version of this dataset, but I had trouble accessing it. It included reviews through 2018. 
+
+The individual files are simplified version of the main dataset. These datasets include no metadata or reviews, but only (user,item,rating,timestamp) tuples. 
+- 82,677,131 reviews from 21,176,522 users for 9,874,211 products. (seeing more reviews/product than reviews/user made me feel good about th labels on the dta being correctly ordered. They were not in the .csv itself, but were in the description of the dataset.)
+
+To make this data more manageable on my machine (8gb RAM), I am creating a new version without the timestamp or user columns. I only need item and rating for my project. The file is called 'amzn_all_items_simplified.csv', this will be the working version of the raw data.

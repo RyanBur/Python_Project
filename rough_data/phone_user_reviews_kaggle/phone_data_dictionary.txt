@@ -1,0 +1,9 @@
+- Original data from this source: https://www.kaggle.com/masaladata/14-million-cell-phone-reviews
+- Came in 6 separate .csv files (row titles exactly the same), I combined into one large file.
+- Original data had 1,415,133 reviews of 5,556 phones
+-Used 'phone_url' to group by rather than 'product', as phone_url referred to the model of the phone while product referred to model and color and storage size and sometimes other string components that didn't lend itself to the comparison I was looking to do. 61,313 different 'product' values. 
+- Saved the combined database to  file (combined_phone_reviews.csv) so I dont have to deal with multiple small files.
+-3,486 unique phones have 25+ reviews.
+-2,656 unique phones have 50+ reviews. 
+-1,882 unique phones have 100+ reviews.
+- Average rating is 8.0 (not grouped by product yet)
