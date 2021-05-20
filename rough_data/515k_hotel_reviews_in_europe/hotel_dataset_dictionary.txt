@@ -1,0 +1,5 @@
+- Original dataset had 1492 Unique hotels, with a total of 515,738 reviews
+- 1,080 Unique hotels had 100+ reviews
+- 1,335 Unique hotels had 50+ reviews
+- 1,446 Unique hotels had 25+ reviews.
+The average rating for a hotel was 8.4 / 10

@@ -1,0 +1,5 @@
+- Original dataset was from this source: https://www.kaggle.com/nicapotato/womens-ecommerce-clothing-reviews
+- Originally 1206 unique clothing items with a total of 23,486 rows. 
+- 150 Unique items that have 25+ reviews
+- 100 unique items that have 50+ reviews
+- 60 Unique items that have 100+ reviews 
