@@ -1,7 +1,20 @@
 Project Proposal:
 
-The Problem:
-The Solution:
+The Problem: How do companies extract meaningful information from overall online customer review statistics for goods/services when reviews are so positively skewed and so biased to being strongly positive or strongly negative? It is well-known that a 3/5 average rating does not mean the good/service is 'average', it is likely to be one of the lower-rated goods/services on th review site.
+
+The Solution: Investigate the typical online reviews distribution for a good/service. Once it is known what a 'bad', 'normal', and 'exceptional' review distribution for a good/serivce looks like, the distribution for any individual good/service can be compared to the universe online-reviewed goods/services to determine whether ustomrs ar more or less satisfied than with an average good/service.
+
+
 
 Background:
+-Online reviews exhibit high levels of polarity and imbalance
+-Characterized by J-shaped distributions
+-Prior research has focused on overall review distribution characteristics for a review source (website) 
+
+
+
 Data:
+Data Processing:
+Analysis:
+Result:
+Product:

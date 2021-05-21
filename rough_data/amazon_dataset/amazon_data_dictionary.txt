@@ -8,4 +8,6 @@ There is an updated version of this dataset, but I had trouble accessing it. It 
 The individual files are simplified version of the main dataset. These datasets include no metadata or reviews, but only (user,item,rating,timestamp) tuples. 
 - 82,677,131 reviews from 21,176,522 users for 9,874,211 products. (seeing more reviews/product than reviews/user made me feel good about th labels on the dta being correctly ordered. They were not in the .csv itself, but were in the description of the dataset.)
 
-To make this data more manageable on my machine (8gb RAM), I am creating a new version without the timestamp or user columns. I only need item and rating for my project. The file is called 'amzn_all_items_simplified.csv', this will be the working version of the raw data.
+To make this data more manageable on my machine (8gb RAM), I am creating a new version without the timestamp or user columns. I only need item and rating for my project. The file is called 'amzn_all_items_simplified.csv', this will be the working version of the raw data. 1.3GB data set, much more reasonable for my machine.
+
+I have created a small sample set of this data upon which to conduct initial data analysis as proof of concept and processing tools. It contains all reviews for 500 unique items randomly sampled from the set of items that have 50+ reviews in the dataset. The data set is named amzn_sample.csv. 
