@@ -11,3 +11,9 @@ The individual files are simplified version of the main dataset. These datasets 
 To make this data more manageable on my machine (8gb RAM), I am creating a new version without the timestamp or user columns. I only need item and rating for my project. The file is called 'amzn_all_items_simplified.csv', this will be the working version of the raw data. 1.3GB data set, much more reasonable for my machine.
 
 I have created a small sample set of this data upon which to conduct initial data analysis as proof of concept and processing tools. It contains all reviews for 500 unique items randomly sampled from the set of items that have 50+ reviews in the dataset. The data set is named amzn_sample.csv. 
+
+This sample dataset was transformed to my final data version and named amzn_sample_final_format.csv.
+
+I created a file with the final format for my entire amazon dataset (using the python code in amazon_full_data_transformation.ipynb), 9.8M rows, one for each item. It is named amzn_final_format.csv.
+
+I also created another dataset, which is all the rows in amzn_final_format that have 25+ reviews. This cut the file size by 90% and still captures more of the data than I am likely to use. I named it amzn_25plusreviews_final_format.csv. It is only 52MB, a very manageeable size. It has all the information I think I will need for my project from Amazon.
