@@ -17,3 +17,5 @@ This sample dataset was transformed to my final data version and named amzn_samp
 I created a file with the final format for my entire amazon dataset (using the python code in amazon_full_data_transformation.ipynb), 9.8M rows, one for each item. It is named amzn_final_format.csv.
 
 I also created another dataset, which is all the rows in amzn_final_format that have 25+ reviews. This cut the file size by 90% and still captures more of the data than I am likely to use. I named it amzn_25plusreviews_final_format.csv. It is only 52MB, a very manageeable size. It has all the information I think I will need for my project from Amazon.
+
+Created a helper data-set, juust for the item I picked as my typical review for doing sample size testing on. amzn_confidence_interval_dataset.csv
