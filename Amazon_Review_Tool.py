@@ -7,7 +7,6 @@ __version__ = 'Beta'
 
 import numpy as np
 import pandas as pd
-import re
 
 # Windows cmd line to test is:  
 # #python3 Documents\\nycdsa-course\\python_project\\Python_Project\\Amazon_Review_Tool.py
@@ -26,7 +25,7 @@ import re
 # Figure out what to output back to the user based upon the analysis.
 	#Might just be in main()
 
-
+#Complete
 def input_analysis(user_list):
 	'''
 	Input: User list/string
@@ -38,23 +37,56 @@ def input_analysis(user_list):
 	return total_reviews, average_rating
 
 
+#Complete
 def sample_size_analysis(num_reviews):
 	'''
 	input: # reviews
 	output: 90% confidence interval as a float
 	'''
 	sample_df = pd.read_csv(r'rough_data\amazon_dataset\amzn_confidence_interval_dataset.csv')
-	print(sample_df.head(), len(sample_df))
 
+	output_list = []
+	for ind in range(5000):
+		review_subset = np.random.choice(sample_df['rating'], num_reviews, replace=False)
+		avg = review_subset.mean()
+		output_list.append(avg)
 
-def analysis_results(input_metrics, analysis_metrics, various):
+	series_out = pd.Series(output_list)
+	# Standard dev of the samples
+	std = np.std(series_out)
+	# z-score for 90% confidence interval
+	z_score = 1.645
+	#90% confidence interval
+	c_i_range = z_score * std
+	return round(c_i_range,3)
+	
+
+#Complete
+def analysis_results(c_i_range, average_rating):
 	'''
 	Inputs: user list anaysis mtrics, sample analysis metrics
 	Output: %-tile for bottom of 90% confidence interval, for average 
 	rating, and for top of 90% confidence interval.
-
 	'''
-	pass
+	cum_freq_df = pd.read_csv(r'rough_data\amazon_dataset\amzn300_cum_freq_table.csv')
+	# Confidence interval endpoints, and average, rounded to align with the
+		# values in the frequency table and bounded by the table limits. 
+	low_c_i = max(round((average_rating - c_i_range)/2,2)*2,1.02)
+	high_c_i = min(round((average_rating + c_i_range)/2,2)*2,5)
+	average_rating = round(average_rating/2,2)*2
+
+	# Retrieve the corresponding cumulative frequency
+	low_ci_rating = cum_freq_df[cum_freq_df['star_rating'] \
+		== low_c_i].iloc[0,1]
+	average_rating_num = cum_freq_df[cum_freq_df['star_rating'] \
+		== average_rating].iloc[0,1]
+	high_ci_rating = cum_freq_df[cum_freq_df['star_rating'] \
+		== high_c_i].iloc[0,1]
+	# Turn them into percents
+	low_ci_percent = round(low_ci_rating*100)
+	average_rating_percent = round(average_rating_num*100)
+	high_ci_percent = round(high_ci_rating*100)
+	return low_ci_percent, average_rating_percent, high_ci_percent
 
 
 
@@ -79,10 +111,35 @@ def main():
 			raise TypeError('All entered values should be integers')
 		user_list.append(star_count)
 
-	# Use helper function to get total reviews and average rating.	
+	# Use helper functions to conduct all the analysis.	
 	input_tuple = input_analysis(user_list)
-	print(input_tuple)
-	ci_interval = sample_size_analysis(input_tuple[0])
+	c_i_range = sample_size_analysis(input_tuple[0])
+	low_end_ci, actual_result, high_end_ci = \
+		analysis_results(c_i_range, input_tuple[1])
+
+	#Logic for printing result. 
+	print('='*20, '\n      Results')
+	print('='*20)
+	if (high_end_ci - low_end_ci) > 25 and input_tuple[0] < 300:
+		msg = f'Product average rating is better than {actual_result}% of' +\
+			' products on Amazon. \nHowever, because of the relatively small' +\
+			' number of reviews, it is only 90% certain that the product is' +\
+			f' better than between {low_end_ci}% to {high_end_ci}% of Amazon' +\
+			' products. To tighten this range, it is recommended that a product' +\
+			' have at least 300 reviews before using this tool.'
+		print(msg)
+	else:
+		msg = f'Product average rating is better than {actual_result}% of products ' +\
+			'on Amazon. \nStatistically, there is a 90% certainty that the product is' +\
+			f' better than between {low_end_ci}% to {high_end_ci}% of Amazon ' +\
+			'products. Running this tool when the product has more reviews will' +\
+			' help tighten this range.'
+		print(msg)
+		
+		
+	print('\naverage rating:', \
+		round(input_tuple[1],2), '\nconfidence interval:', \
+			c_i_range, '\nnumber of reviews:', input_tuple[0])
 
 
 
