@@ -1,5 +1,7 @@
 '''
-Doc String
+Amazon Product Review scoring tool.
+This is the first of four projects for the NYC Data Science Academy program.
+
 
 '''
 __author__ = 'Ryan Burakowski'
@@ -8,26 +10,10 @@ __version__ = 'Beta'
 import numpy as np
 import pandas as pd
 
-# Windows cmd line to test is:  
-# #python3 Documents\\nycdsa-course\\python_project\\Python_Project\\Amazon_Review_Tool.py
 
-#Get input from user. Can be done in main()
-
-#Create stats on input for analysis (input_analysis())
-
-#Create sample size standard deviation measure for sample size = # reviews,
-	# and confidence interval. (sample_size_analysis())
-
-#From cum frequency list, determine where the product falls (percentage-wise). 
-	# Also determine th 90% confidence interval for percentages (analysis_results())
-
-
-# Figure out what to output back to the user based upon the analysis.
-	#Might just be in main()
-
-#Complete
 def input_analysis(user_list):
 	'''
+	Calculates statistics from user-inputted review data.
 	Input: User list/string
 	Output: tuple: (number of reviews, average rating)
 	'''
@@ -37,40 +23,46 @@ def input_analysis(user_list):
 	return total_reviews, average_rating
 
 
-#Complete
+
 def sample_size_analysis(num_reviews):
 	'''
-	input: # reviews
-	output: 90% confidence interval as a float
+	Calculates confidence interval for product average rating, based
+	on random sampling of a typical, well-reviewed product
+	Input: number of reviews
+	Output: 90% confidence interval as a float
 	'''
+	# Import the data for the 'typical' review.
 	sample_df = pd.read_csv(r'rough_data\amazon_dataset\amzn_confidence_interval_dataset.csv')
 
+	# Create set of random samples from the 'typical' review, with
+	# the sampe size the same as the number of reviews inputted into the tool. 
 	output_list = []
 	for ind in range(5000):
 		review_subset = np.random.choice(sample_df['rating'], num_reviews, replace=False)
 		avg = review_subset.mean()
 		output_list.append(avg)
-
 	series_out = pd.Series(output_list)
+
 	# Standard dev of the samples
 	std = np.std(series_out)
 	# z-score for 90% confidence interval
 	z_score = 1.645
-	#90% confidence interval
+	# 90% confidence interval
 	c_i_range = z_score * std
 	return round(c_i_range,3)
 	
 
-#Complete
 def analysis_results(c_i_range, average_rating):
 	'''
+	Calculates relevant percentages for the product in question, compared
+	to other Amazon products. Uses results from my previous analysis.
 	Inputs: user list anaysis mtrics, sample analysis metrics
 	Output: %-tile for bottom of 90% confidence interval, for average 
 	rating, and for top of 90% confidence interval.
 	'''
 	cum_freq_df = pd.read_csv(r'rough_data\amazon_dataset\amzn300_cum_freq_table.csv')
 	# Confidence interval endpoints, and average, rounded to align with the
-		# values in the frequency table and bounded by the table limits. 
+	# values in the frequency table and bounded by the table limits. 
 	low_c_i = max(round((average_rating - c_i_range)/2,2)*2,1.02)
 	high_c_i = min(round((average_rating + c_i_range)/2,2)*2,5)
 	average_rating = round(average_rating/2,2)*2
@@ -94,7 +86,7 @@ def main():
 	# Write out an intro message
 	intro = '\nWelcome to the Amazon product review scoring tool!\n\n'+\
 	'This was created by Ryan Burakowski for an NYC Data  Science'+\
-	'Academy project. The datset used in this project is for academic '+\
+	' Academy project. The datset used in this project is for academic '+\
 	'purposes only. No commercial use of this tool is allowed.\n'
 	# Ask for user input
 	intro2 = '\nThis tool will provide information about how the reviews for'+\
@@ -136,19 +128,10 @@ def main():
 			' help tighten this range.'
 		print(msg)
 		
-		
+	# Print some relevant statistics.	
 	print('\naverage rating:', \
 		round(input_tuple[1],2), '\nconfidence interval:', \
 			c_i_range, '\nnumber of reviews:', input_tuple[0])
-
-
-
-
-
-
-
-
-
 
 
 
