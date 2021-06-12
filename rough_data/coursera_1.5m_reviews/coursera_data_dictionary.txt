@@ -1,5 +1,0 @@
-- Original dataset contained 604 unique courses with 1,454,711 total reviews.
-- 589 Courses had 25+ reviews
-- 585 Coures had 50+ reviews
-- 569 Courses had 100+ reviews.
-Average value for a rating was 4.7 / 5. Note: This is not average rating for a course. 
